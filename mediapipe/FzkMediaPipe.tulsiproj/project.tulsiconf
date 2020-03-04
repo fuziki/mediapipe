@@ -1,0 +1,19 @@
+{
+  "configDefaults" : {
+    "optionSet" : {
+      "CLANG_CXX_LANGUAGE_STANDARD" : {
+        "p" : "c++14"
+      }
+    }
+  },
+  "packages" : [
+    "",
+    "mediapipe",
+    "mediapipe/objc",
+    "mediapipe/fzk/ios",
+    "mediapipe/fzk/ios/handtrackinggpu",
+    "mediapipe/fzk/ios/handtrackinggpuframework",
+  ],
+  "projectName" : "FzkMediapipe",
+  "workspaceRoot" : "../.."
+}
