@@ -1,4 +1,5 @@
 mediapipe/provisioning_profile.mobileprovision
+bazel-mediapipe
 bazel-bin
 bazel-genfiles
 bazel-mediapipe-ioss

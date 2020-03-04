@@ -1,0 +1,56 @@
+{
+  "additionalFilePaths" : [
+    "/BUILD",
+    "mediapipe/BUILD",
+    "mediapipe/objc/BUILD",
+    "mediapipe/fzk/ios/BUILD",
+    "mediapipe/fzk/ios/handtrackinggpuapp/BUILD",
+    "mediapipe/fzk/ios/handtrackinggpuframework/BUILD"
+  ],
+  "buildTargets" : [
+    "//mediapipe/fzk/ios/handtrackinggpuapp:HandTrackingGpuApp",
+    "//mediapipe/fzk/ios/handtrackinggpuframework:HandTrackingGpuFramework",
+    "//mediapipe/objc:mediapipe_framework_ios"
+  ],
+  "optionSet" : {
+
+  },
+  "projectName" : "FzkMediapipe",
+  "sourceFilters" : [
+    "mediapipe",
+    "mediapipe/calculators",
+    "mediapipe/calculators/core",
+    "mediapipe/calculators/image",
+    "mediapipe/calculators/internal",
+    "mediapipe/calculators/tflite",
+    "mediapipe/calculators/util",
+    "mediapipe/framework",
+    "mediapipe/framework/deps",
+    "mediapipe/framework/formats",
+    "mediapipe/framework/formats/annotation",
+    "mediapipe/framework/formats/object_detection",
+    "mediapipe/framework/port",
+    "mediapipe/framework/profiler",
+    "mediapipe/framework/stream_handler",
+    "mediapipe/framework/tool",
+    "mediapipe/fzk",
+    "mediapipe/fzk/ios",
+    "mediapipe/fzk/ios/handtrackinggpuapp",
+    "mediapipe/fzk/ios/handtrackinggpuapp/Base.lproj",
+    "mediapipe/fzk/ios/handtrackinggpuframework",
+    "mediapipe/gpu",
+    "mediapipe/graphs",
+    "mediapipe/graphs/edge_detection",
+    "mediapipe/graphs/face_detection",
+    "mediapipe/graphs/hand_tracking",
+    "mediapipe/graphs/object_detection",
+    "mediapipe/models",
+    "mediapipe/objc",
+    "mediapipe/util",
+    "mediapipe/util/android",
+    "mediapipe/util/android/file",
+    "mediapipe/util/android/file/base",
+    "mediapipe/util/tflite",
+    "mediapipe/util/tflite/operations"
+  ]
+}
