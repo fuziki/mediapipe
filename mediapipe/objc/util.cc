@@ -347,6 +347,8 @@ CVPixelBufferRef CreateCVPixelBufferForImageFramePacket(
       CVPixelBufferLockBaseAddress(image_buffer, kCVPixelBufferLock_ReadOnly);
   RET_CHECK(status == kCVReturnSuccess)
       << "CVPixelBufferLockBaseAddress failed: " << status;
+    
+    LOG(WARNING) << "it's called CreateImageFrameForCVPixelBuffer";
 
   void* base_address = CVPixelBufferGetBaseAddress(image_buffer);
   size_t bytes_per_row = CVPixelBufferGetBytesPerRow(image_buffer);
@@ -444,6 +446,8 @@ std::unique_ptr<mediapipe::ImageFrame> CreateImageFrameForCVPixelBuffer(
   size_t width = CVPixelBufferGetWidth(image_buffer);
   size_t height = CVPixelBufferGetHeight(image_buffer);
   std::unique_ptr<mediapipe::ImageFrame> frame;
+    
+    LOG(WARNING) << "it's called CreateImageFrameForCVPixelBuffer";
 
   CVPixelBufferRetain(image_buffer);
 

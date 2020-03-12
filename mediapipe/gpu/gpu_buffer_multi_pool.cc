@@ -31,7 +31,7 @@ namespace mediapipe {
 static constexpr int kKeepCount = 2;
 // The maximum size of the GpuBufferMultiPool. When the limit is reached, the
 // oldest BufferSpec will be dropped.
-static constexpr int kMaxPoolCount = 20;
+static constexpr int kMaxPoolCount = 40;
 
 #if MEDIAPIPE_GPU_BUFFER_USE_CV_PIXEL_BUFFER
 
@@ -39,13 +39,15 @@ GpuBufferMultiPool::SimplePool GpuBufferMultiPool::MakeSimplePool(
     BufferSpec spec) {
   OSType cv_format = CVPixelFormatForGpuBufferFormat(spec.format);
   CHECK_NE(cv_format, -1) << "unsupported pixel format";
+    
+    LOG(WARNING) << "GpuBufferMultiPool::MakeSimplePool";
+    
   return MakeCFHolderAdopting(
       CreateCVPixelBufferPool(spec.width, spec.height, cv_format, kKeepCount,
                               0.1 /* max age in seconds */));
 }
 
-GpuBuffer GpuBufferMultiPool::GetBufferFromSimplePool(
-    BufferSpec spec, const GpuBufferMultiPool::SimplePool& pool) {
+GpuBuffer GpuBufferMultiPool::GetBufferFromSimplePool(BufferSpec spec, const GpuBufferMultiPool::SimplePool& pool) {
 #if TARGET_IPHONE_SIMULATOR
   // On the simulator, syncing the texture with the pixelbuffer does not work,
   // and we have to use glReadPixels. Since GL_UNPACK_ROW_LENGTH is not
@@ -62,6 +64,10 @@ GpuBuffer GpuBufferMultiPool::GetBufferFromSimplePool(
   CHECK(!err) << "Error creating pixel buffer: " << err;
   return GpuBuffer(MakeCFHolderAdopting(buffer));
 #else
+    
+    
+    LOG(WARNING) << "GpuBufferMultiPool::GetBufferFromSimplePool";
+    
   CVPixelBufferRef buffer;
   // TODO: allow the keepCount and the allocation threshold to be set
   // by the application, and to be set independently.
@@ -80,7 +86,10 @@ GpuBuffer GpuBufferMultiPool::GetBufferFromSimplePool(
       },
       &buffer);
   CHECK(!err) << "Error creating pixel buffer: " << err;
-  return GpuBuffer(MakeCFHolderAdopting(buffer));
+    GpuBuffer buff = GpuBuffer(MakeCFHolderAdopting(buffer));
+//    CFRelease(buffer);
+//    CVBufferRelease(buffer);
+    return buff;
 #endif  // TARGET_IPHONE_SIMULATOR
 }
 
@@ -88,12 +97,18 @@ GpuBuffer GpuBufferMultiPool::GetBufferFromSimplePool(
 
 GpuBufferMultiPool::SimplePool GpuBufferMultiPool::MakeSimplePool(
     BufferSpec spec) {
+    
+    LOG(WARNING) << "GpuBufferMultiPool::MakeSimplePool";
+    
   return GlTextureBufferPool::Create(spec.width, spec.height, spec.format,
                                      kKeepCount);
 }
 
 GpuBuffer GpuBufferMultiPool::GetBufferFromSimplePool(
     BufferSpec spec, const GpuBufferMultiPool::SimplePool& pool) {
+    
+    LOG(WARNING) << "GpuBufferMultiPool::GetBufferFromSimplePool singler";
+    
   return GpuBuffer(pool->GetBuffer());
 }
 
@@ -101,6 +116,10 @@ GpuBuffer GpuBufferMultiPool::GetBufferFromSimplePool(
 
 GpuBuffer GpuBufferMultiPool::GetBuffer(int width, int height,
                                         GpuBufferFormat format) {
+    
+    LOG(WARNING) << "GpuBufferMultiPool::GetBuffer";
+    
+    
   absl::MutexLock lock(&mutex_);
   BufferSpec key(width, height, format);
   auto pool_it = pools_.find(key);
@@ -121,6 +140,7 @@ GpuBuffer GpuBufferMultiPool::GetBuffer(int width, int height,
 }
 
 GpuBufferMultiPool::~GpuBufferMultiPool() {
+    LOG(WARNING) << "GpuBufferMultiPool::~GpuBufferMultiPool";
 #ifdef __APPLE__
   CHECK_EQ(texture_caches_.size(), 0)
       << "Failed to unregister texture caches before deleting pool";
@@ -130,6 +150,8 @@ GpuBufferMultiPool::~GpuBufferMultiPool() {
 #ifdef __APPLE__
 void GpuBufferMultiPool::RegisterTextureCache(CVTextureCacheType cache) {
   absl::MutexLock lock(&mutex_);
+    
+    LOG(WARNING) << "GpuBufferMultiPool::RegisterTextureCache";
 
   CHECK(std::find(texture_caches_.begin(), texture_caches_.end(), cache) ==
         texture_caches_.end())
@@ -139,6 +161,8 @@ void GpuBufferMultiPool::RegisterTextureCache(CVTextureCacheType cache) {
 
 void GpuBufferMultiPool::UnregisterTextureCache(CVTextureCacheType cache) {
   absl::MutexLock lock(&mutex_);
+    
+    LOG(WARNING) << "GpuBufferMultiPool::UnregisterTextureCache";
 
   auto it = std::find(texture_caches_.begin(), texture_caches_.end(), cache);
   CHECK(it != texture_caches_.end())

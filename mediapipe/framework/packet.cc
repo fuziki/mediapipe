@@ -30,6 +30,8 @@ HolderBase::~HolderBase() {}
 Packet Create(HolderBase* holder) {
   Packet result;
   result.holder_.reset(holder);
+    LOG(WARNING) << "HolderBase: " << typeid(holder).name();
+//  LOG(WARNING) << absl::Substitute("HolderBase $0", holder);
   return result;
 }
 

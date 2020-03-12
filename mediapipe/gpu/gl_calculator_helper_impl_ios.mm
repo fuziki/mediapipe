@@ -181,6 +181,9 @@ void GlTexture::Release() {
     glDeleteTextures(1, &name_);
   }
 #endif  // MEDIAPIPE_GPU_BUFFER_USE_CV_PIXEL_BUFFER
+    
+//    CVBufferRelease(gpu_buffer_.GetCVPixelBufferRef());
+    
   helper_impl_ = nullptr;
   gpu_buffer_ = nullptr;
   plane_ = 0;

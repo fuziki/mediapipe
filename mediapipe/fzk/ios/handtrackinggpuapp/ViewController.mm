@@ -82,7 +82,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
   // Create MediaPipe graph with mediapipe::CalculatorGraphConfig proto object.
   MPPGraph* newGraph = [[MPPGraph alloc] initWithGraphConfig:config];
-  [newGraph addFrameOutputStream:kOutputStream outputPacketType:MPPPacketTypePixelBuffer];
+//  [newGraph addFrameOutputStream:kOutputStream outputPacketType:MPPPacketTypePixelBuffer];
   [newGraph addFrameOutputStream:kLandmarksOutputStream outputPacketType:MPPPacketTypeRaw];
   return newGraph;
 }
@@ -113,7 +113,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
   self.mediapipeGraph = [[self class] loadGraphFromResource:kGraphName];
   self.mediapipeGraph.delegate = self;
   // Set maxFramesInFlight to a small value to avoid memory contention for real-time processing.
-  self.mediapipeGraph.maxFramesInFlight = 2;
+  self.mediapipeGraph.maxFramesInFlight = 0;
 }
 
 // In this application, there is only one ViewController which has no navigation to other view
@@ -151,39 +151,44 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 #pragma mark - MPPGraphDelegate methods
 
 // Receives CVPixelBufferRef from the MediaPipe graph. Invoked on a MediaPipe worker thread.
-- (void)mediapipeGraph:(MPPGraph*)graph
-    didOutputPixelBuffer:(CVPixelBufferRef)pixelBuffer
-              fromStream:(const std::string&)streamName {
-  if (streamName == kOutputStream) {
-    // Display the captured image on the screen.
-    CVPixelBufferRetain(pixelBuffer);
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [_renderer renderPixelBuffer:pixelBuffer];
-      CVPixelBufferRelease(pixelBuffer);
-    });
-  }
-}
+//- (void)mediapipeGraph:(MPPGraph*)graph
+//    didOutputPixelBuffer:(CVPixelBufferRef)pixelBuffer
+//              fromStream:(const std::string&)streamName {
+//  if (streamName == kOutputStream) {
+//    // Display the captured image on the screen.
+//    CVPixelBufferRetain(pixelBuffer);
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//      [_renderer renderPixelBuffer:pixelBuffer];
+//      CVPixelBufferRelease(pixelBuffer);
+//    });
+//  }
+//}
 
 // Receives a raw packet from the MediaPipe graph. Invoked on a MediaPipe worker thread.
 - (void)mediapipeGraph:(MPPGraph*)graph
      didOutputPacket:(const ::mediapipe::Packet&)packet
           fromStream:(const std::string&)streamName {
-  if (streamName == kLandmarksOutputStream) {
-    if (packet.IsEmpty()) {
-      NSLog(@"[TS:%lld] No hand landmarks", packet.Timestamp().Value());
-      return;
-    }
-    const auto& landmarks = packet.Get<::mediapipe::NormalizedLandmarkList>();
-    NSLog(@"[TS:%lld] Number of landmarks on hand: %d", packet.Timestamp().Value(),
-          landmarks.landmark_size());
-    for (int i = 0; i < landmarks.landmark_size(); ++i) {
-      NSLog(@"\tLandmark[%d]: (%f, %f, %f)", i, landmarks.landmark(i).x(),
-            landmarks.landmark(i).y(), landmarks.landmark(i).z());
-    }
-  }
+    cnt2 = 0;
+//  if (streamName == kLandmarksOutputStream) {
+//    if (packet.IsEmpty()) {
+//      NSLog(@"[TS:%lld] No hand landmarks", packet.Timestamp().Value());
+//      return;
+//    }
+//    const auto& landmarks = packet.Get<::mediapipe::NormalizedLandmarkList>();
+//    NSLog(@"[TS:%lld] Number of landmarks on hand: %d", packet.Timestamp().Value(),
+//          landmarks.landmark_size());
+//    for (int i = 0; i < landmarks.landmark_size(); ++i) {
+//      NSLog(@"\tLandmark[%d]: (%f, %f, %f)", i, landmarks.landmark(i).x(),
+//            landmarks.landmark(i).y(), landmarks.landmark(i).z());
+//    }
+//  }
 }
 
 #pragma mark - MPPInputSourceDelegate methods
+
+int cnt = 0;
+
+int cnt2 = 0;
 
 // Must be invoked on _videoQueue.
 - (void)processVideoFrame:(CVPixelBufferRef)imageBuffer
@@ -193,9 +198,27 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     NSLog(@"Unknown source: %@", source);
     return;
   }
-  [self.mediapipeGraph sendPixelBuffer:imageBuffer
-                            intoStream:kInputStream
-                            packetType:MPPPacketTypePixelBuffer];
+    if (cnt == 0) {
+//          NSLog(@"sendPixelBuffer");
+//        [self.mediapipeGraph sendPixelBuffer:imageBuffer
+//                                  intoStream:kInputStream
+//                                  packetType:MPPPacketTypePixelBuffer];
+    }
+    if (cnt < 60) {
+        cnt += 1;
+        return;
+    }
+    
+//    if (cnt > 180) {
+//        return;
+//    }
+//    cnt += 1;
+    
+      NSLog(@"sendPixelBuffer");
+    [self.mediapipeGraph sendPixelBuffer:imageBuffer
+                              intoStream:kInputStream
+                              packetType:MPPPacketTypePixelBuffer];
 }
 
 @end
+

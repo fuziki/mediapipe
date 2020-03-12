@@ -65,6 +65,9 @@ OSStatus PreallocateCVPixelBufferPoolBuffers(
     }
 
     [pixelBuffers addObject:(__bridge id)pixelBuffer];
+      
+//      CVPixelBufferRelease(pixelBuffer);
+      
     CFRelease(pixelBuffer);
   }
   return err;
@@ -94,6 +97,9 @@ CVReturn CreateCVPixelBufferWithPool(
 CVReturn CreateCVPixelBufferWithPool(
     CVPixelBufferPoolRef pool, CFDictionaryRef auxAttributes,
     std::function<void(void)> flush, CVPixelBufferRef* outBuffer) {
+    
+    NSLog(@"CVReturn CreateCVPixelBufferWithPool");
+    
   CVReturn err = CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(
       kCFAllocatorDefault, pool, auxAttributes, outBuffer);
   if (err == kCVReturnWouldExceedAllocationThreshold) {

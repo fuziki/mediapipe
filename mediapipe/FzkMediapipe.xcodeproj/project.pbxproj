@@ -2289,6 +2289,12 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 1000;
+				TargetAttributes = {
+					C56DB9C8D5958E1A00000000 = {
+						DevelopmentTeam = N8B2B6D2KS;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = B08D5544CF1E3A6200000000 /* Build configuration list for PBXProject "FzkMediapipe" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2381,7 +2387,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -e\ncd \"${SRCROOT}/..\"\nexec \"${PROJECT_FILE_PATH}/.tulsi/Scripts/bazel_build.py\" //mediapipe/objc:mediapipe_framework_ios --bazel \"/usr/local/bin/bazel\" --bazel_bin_path \"bazel-bin\" --verbose ";
+			shellScript = "set -e\ncd \"${SRCROOT}/..\"\nexec \"${PROJECT_FILE_PATH}/.tulsi/Scripts/bazel_build.py\" //mediapipe/objc:mediapipe_framework_ios --bazel \"/usr/local/bin/bazel\" --bazel_bin_path \"bazel-bin\" --verbose \n";
 		};
 		163EC30BC5C31AA300000000 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3769,12 +3775,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
 				BAZEL_TARGET = "//mediapipe/fzk/ios/handtrackinggpuapp:HandTrackingGpuApp";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.example2;
 				PRODUCT_NAME = HandTrackingGpuApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TULSI_BUILD_PATH = mediapipe/fzk/ios/handtrackinggpuapp;
 				TULSI_XCODE_VERSION = 11.3.1.11C504;
@@ -5872,7 +5882,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
 				BAZEL_TARGET = "//mediapipe/fzk/ios/handtrackinggpuapp:HandTrackingGpuApp";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = "";
@@ -5884,6 +5897,7 @@
 				OTHER_SWIFT_FLAGS = "--version";
 				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.example2;
 				PRODUCT_NAME = HandTrackingGpuApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
@@ -5987,7 +6001,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
 				BAZEL_TARGET = "//mediapipe/fzk/ios/handtrackinggpuapp:HandTrackingGpuApp";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				HEADER_SEARCH_PATHS = "";
@@ -5999,6 +6016,7 @@
 				OTHER_SWIFT_FLAGS = "--version";
 				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.example2;
 				PRODUCT_NAME = HandTrackingGpuApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
@@ -6102,12 +6120,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
 				BAZEL_TARGET = "//mediapipe/fzk/ios/handtrackinggpuapp:HandTrackingGpuApp";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.example2;
 				PRODUCT_NAME = HandTrackingGpuApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TULSI_BUILD_PATH = mediapipe/fzk/ios/handtrackinggpuapp;
 				TULSI_XCODE_VERSION = 11.3.1.11C504;

@@ -16,6 +16,9 @@
 #define MEDIAPIPE_OBJC_CFHOLDER_H_
 
 #import <CoreFoundation/CoreFoundation.h>
+#import <CoreVideo/CoreVideo.h>
+
+#include <stdio.h>
 
 /// Manages ownership of a CoreFoundation type (any type that can be passed
 /// to CFRetain/CFRelease).
@@ -83,7 +86,17 @@ class CFHolder {
   }
 
   static inline void ReleaseIfNotNull(T object) {
+      
+      printf("CFHolder& reset(T object) type %s\n", typeid(T).name());
+      
+//      if(typeid(T).name() == "P10__CVBuffer")
+//          CVBufferRelease((CVBufferRef)object);
+      
+//      cout << "CFHolder& reset(T object) type" << typeid(T).name();
+      
     if (object) CFRelease(object);
+
+//      CVBufferRelease((CVBufferRef)object);
   }
   T _object;
 };
