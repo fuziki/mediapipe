@@ -82,7 +82,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
   // Create MediaPipe graph with mediapipe::CalculatorGraphConfig proto object.
   MPPGraph* newGraph = [[MPPGraph alloc] initWithGraphConfig:config];
-  [newGraph addFrameOutputStream:kOutputStream outputPacketType:MPPPacketTypePixelBuffer];
+//  [newGraph addFrameOutputStream:kOutputStream outputPacketType:MPPPacketTypePixelBuffer];
   [newGraph addFrameOutputStream:kLandmarksOutputStream outputPacketType:MPPPacketTypeRaw];
   return newGraph;
 }
@@ -185,6 +185,8 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
 #pragma mark - MPPInputSourceDelegate methods
 
+int cnt = 0;
+
 // Must be invoked on _videoQueue.
 - (void)processVideoFrame:(CVPixelBufferRef)imageBuffer
                 timestamp:(CMTime)timestamp
@@ -193,6 +195,12 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     NSLog(@"Unknown source: %@", source);
     return;
   }
+    
+    if (cnt < 60) {
+        cnt += 1;
+        return;
+    }
+    
   [self.mediapipeGraph sendPixelBuffer:imageBuffer
                             intoStream:kInputStream
                             packetType:MPPPacketTypePixelBuffer];
