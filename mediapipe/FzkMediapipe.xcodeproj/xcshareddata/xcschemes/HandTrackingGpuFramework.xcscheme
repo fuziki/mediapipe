@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C56DB9C8FF28F17A00000000"
+               BlueprintIdentifier = "31CF4F4A17EFE14200000000"
                BuildableName = "HandTrackingGpuFramework.framework"
                BlueprintName = "HandTrackingGpuFramework"
                ReferencedContainer = "container:FzkMediapipe.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C56DB9C8FF28F17A00000000"
+            BlueprintIdentifier = "31CF4F4A17EFE14200000000"
             BuildableName = "HandTrackingGpuFramework.framework"
             BlueprintName = "HandTrackingGpuFramework"
             ReferencedContainer = "container:FzkMediapipe.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C56DB9C8FF28F17A00000000"
+            BlueprintIdentifier = "31CF4F4A17EFE14200000000"
             BuildableName = "HandTrackingGpuFramework.framework"
             BlueprintName = "HandTrackingGpuFramework"
             ReferencedContainer = "container:FzkMediapipe.xcodeproj">
